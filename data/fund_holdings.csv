@@ -1,0 +1,11 @@
+ticker,sector,shares,cost_basis,current_price
+AAPL,Technology,120,168.40,212.55
+MSFT,Technology,80,310.20,428.90
+NVDA,Technology,40,420.00,915.30
+GOOGL,Technology,90,135.80,178.20
+JPM,Financials,150,148.50,202.10
+GS,Financials,30,355.00,478.60
+JNJ,Healthcare,110,162.00,158.40
+UNH,Healthcare,25,488.00,512.75
+XOM,Energy,140,108.20,118.95
+WMT,Consumer,95,58.10,71.40
