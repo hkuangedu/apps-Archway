@@ -51,6 +51,14 @@ def numbered(items: list[str]) -> None:
         doc.add_paragraph(item, style="List Number")
 
 
+def mono_block(text: str) -> None:
+    p = doc.add_paragraph()
+    p.paragraph_format.left_indent = Inches(0.2)
+    run = p.add_run(text)
+    run.font.name = "Consolas"
+    run.font.size = Pt(9)
+
+
 def table(rows: list[list[str]], header: bool = True) -> None:
     t = doc.add_table(rows=len(rows), cols=len(rows[0]))
     t.style = "Light Grid Accent 1"
@@ -150,8 +158,39 @@ bullets([
 
 h3("Flow (Reporting Example)")
 para(
-    "Orchestrator → [Performance, Holdings, Sector, Market agents in parallel] → Writer → "
-    "Verification → Governance → Formatter → final PPT/Word deliverable."
+    "The reporting workflow chains agents from data → draft → quality → delivery. "
+    "The orchestrator dispatches sector/data sub-agents in parallel; the writer assembles the draft; "
+    "verification loops back to the writer if numbers don't tie; governance allows/rewrites/blocks "
+    "the final language; the formatter produces the file."
+)
+mono_block(
+    "                  ┌─────────────────┐\n"
+    "                  │   Orchestrator  │  reads template, dispatches work\n"
+    "                  └────────┬────────┘\n"
+    "                           │\n"
+    "         ┌─────────────────┼─────────────────┐\n"
+    "         ▼                 ▼                 ▼\n"
+    "   Performance Agent  Holdings Agent   Sector Agents (Tech, Health, ...)\n"
+    "         │                 │                 │\n"
+    "         └─────────────────┼─────────────────┘\n"
+    "                           ▼\n"
+    "                  ┌─────────────────┐\n"
+    "                  │   Writer Agent  │  assembles draft from sections\n"
+    "                  └────────┬────────┘\n"
+    "                           ▼\n"
+    "                  ┌─────────────────┐\n"
+    "                  │ Verification    │  every number tied back to source\n"
+    "                  │     Agent       │  → loops back to Writer if breaks\n"
+    "                  └────────┬────────┘\n"
+    "                           ▼\n"
+    "                  ┌─────────────────┐\n"
+    "                  │  Governance     │  language, mandate, disclosures\n"
+    "                  │     Agent       │  → allow/rewrite/block\n"
+    "                  └────────┬────────┘\n"
+    "                           ▼\n"
+    "                  ┌─────────────────┐\n"
+    "                  │ Formatter Agent │  → Word / PPT / PDF\n"
+    "                  └─────────────────┘"
 )
 
 # Action Plan
