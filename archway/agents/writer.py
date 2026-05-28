@@ -4,7 +4,7 @@ from __future__ import annotations
 from typing import Callable
 
 from . import prompts
-from .base import call_agent
+from .base import WRITER_MODEL, call_agent
 from .trace import RunTrace
 
 
@@ -27,5 +27,6 @@ def run(
         step_name="writer",
         system_prompt=prompts.WRITER,
         user_prompt=user_prompt,
+        model=WRITER_MODEL,
         on_token=on_token,
     )

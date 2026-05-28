@@ -2,4 +2,5 @@ streamlit>=1.30
 pandas>=2.0
 requests>=2.31
 anthropic>=0.40
+openai>=1.50
 streamlit-flow-component>=1.2

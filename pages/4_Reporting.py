@@ -19,7 +19,7 @@ from archway.agents import holdings as holdings_agent
 from archway.agents import performance as performance_agent
 from archway.agents import verifier as verifier_agent
 from archway.agents import writer as writer_agent
-from archway.agents.base import api_key_available
+from archway.agents.base import DEFAULT_MODEL, WRITER_MODEL, missing_keys
 from archway.agents.trace import (
     RunTrace,
     Step,
@@ -263,7 +263,8 @@ with st.sidebar:
 
 # --- Main: header bar + controls -------------------------------------------
 
-key_ok = api_key_available()
+missing = missing_keys([DEFAULT_MODEL, WRITER_MODEL])
+key_ok = len(missing) == 0
 
 if "trace" not in st.session_state:
     st.session_state["trace"] = new_reporting_trace()
@@ -277,9 +278,9 @@ top1, top2, top3, top4 = st.columns([1.5, 1, 1, 1])
 with top1:
     if not key_ok:
         st.warning(
-            "🔑 No `ANTHROPIC_API_KEY` found. Add it to "
-            "`.streamlit/secrets.toml` to generate new runs. You can still "
-            "replay saved runs from the sidebar.",
+            f"🔑 Missing key(s): {', '.join('`' + k + '`' for k in missing)}. "
+            "Add them to `.streamlit/secrets.toml` to generate new runs. "
+            "You can still replay saved runs from the sidebar.",
             icon="⚠️",
         )
     run_clicked = st.button(

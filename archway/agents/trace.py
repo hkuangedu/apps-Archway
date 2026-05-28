@@ -14,9 +14,15 @@ from typing import Any, Literal
 
 RUNS_DIR = Path(__file__).resolve().parent.parent.parent / "data" / "runs"
 
-# Sonnet 4.6 published rates ($ per 1M tokens).
+# Published rates ($ per 1M tokens). Update as providers change pricing.
 PRICE_PER_MTOK = {
+    # Anthropic
     "claude-sonnet-4-6": {"input": 3.00, "output": 15.00},
+    # OpenAI
+    "gpt-5.4": {"input": 2.50, "output": 15.00},
+    "gpt-5.4-mini": {"input": 0.75, "output": 4.50},
+    "gpt-5.4-nano": {"input": 0.20, "output": 1.25},
+    "gpt-5.5": {"input": 5.00, "output": 30.00},
 }
 
 StepStatus = Literal["pending", "running", "done", "failed"]
